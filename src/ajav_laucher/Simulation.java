@@ -5,12 +5,28 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Simulation {
+    //pasarla dentro del main
     private static int cycles;
     
     public static class SimulationException extends Exception {
-        // private static final long serialVersionUID = 1L;
         public SimulationException(String message) {
             super(message);
+        }
+    }
+
+    private static void loadAircrafts(BufferedReader br) throws IOException {
+        String line;
+        while ((line = br.readLine()) != null)
+        {
+            String[] data = line.split("\\s+"); //divide por 1 o + espacios vacios
+            // for (String word : data)
+            //     System.out.println(word);
+            String type = data[0];
+            String name = data[1];
+            int longitude = Integer.parseInt(data[2]);
+            int latitude = Integer.parseInt(data[3]);
+            int height = Integer.parseInt(data[4]);
+            System.out.println("TYPE: " + type + " | NAME: " + name + " | LONG: " + longitude + " | LAT: " + latitude + " | HE: " + height);
         }
     }
 
@@ -33,12 +49,15 @@ public class Simulation {
         String fname = args[0];
         try (BufferedReader br = new BufferedReader(new FileReader(fname))){
             initSimulation(br);
-            System.out.println(cycles);
+            System.out.println("CYCLES: " + cycles);
             //funcion que cambia el tiempo
+            loadAircrafts(br);
+            System.out.println("WEATHER CHANGE NOW");
             WeatherTower weatherTower = new WeatherTower();
             while (cycles > 0)
             {
                 weatherTower.changeWeather();
+                System.out.println("-------------");
                 cycles--;
             }
         } catch (SimulationException e) {
