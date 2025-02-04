@@ -35,11 +35,12 @@ public class Simulation {
             initSimulation(br);
             System.out.println(cycles);
             //funcion que cambia el tiempo
-            // while (cycles > 0)
-            // {
-            //     changeWeather();
-            //     cycles--;
-            // }
+            WeatherTower weatherTower = new WeatherTower();
+            while (cycles > 0)
+            {
+                weatherTower.changeWeather();
+                cycles--;
+            }
         } catch (SimulationException e) {
             System.out.println("Simulation error: " + e.getMessage());
         } catch (IOException e) {
