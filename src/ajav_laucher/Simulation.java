@@ -3,11 +3,16 @@ package ajav_launcher;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+
+import ajav_launcher.aircrafts.*;
 
 public class Simulation {
     //pasarla dentro del main
     private static int cycles;
-    
+    private static List<Aircraft> aircrafts_li = new ArrayList<>();
+
     public static class SimulationException extends Exception {
         public SimulationException(String message) {
             super(message);
@@ -27,6 +32,14 @@ public class Simulation {
             int latitude = Integer.parseInt(data[3]);
             int height = Integer.parseInt(data[4]);
             System.out.println("TYPE: " + type + " | NAME: " + name + " | LONG: " + longitude + " | LAT: " + latitude + " | HE: " + height);
+            Aircraft aircraft = null;
+            switch (type.toLowerCase()) {
+                case "jetplane":
+                    aircraft = new JetPlane(type, name, longitude, latitude, height);
+                    break;
+            }
+            aircrafts_li.add(aircraft);
+            System.out.println("Creado: " + aircraft);
         }
     }
 
