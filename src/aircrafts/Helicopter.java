@@ -1,12 +1,8 @@
 package ajav_launcher.aircrafts;
 
-public class JetPlane extends Aircraft {
-    public JetPlane(String type, String name, int longitude, int latitude, int height) {
-        super(type, name, longitude, latitude, height);
-        weatherMsg.put("SUN", "JetPlane sun");
-        weatherMsg.put("FOG", "JetPlane fog");
-        weatherMsg.put("RAIN", "JetPlane rain");
-        weatherMsg.put("SNOW", "JetPlane snow");
+public class Helicopter extends Aircraft {
+    public Helicopter (String type, String name, int lo, int la, int he) {
+        super(type, name, lo, la, he);
     }
 
     @Override
@@ -23,7 +19,7 @@ public class JetPlane extends Aircraft {
                 this.la += 1;
                 break;
             case "SNOW":
-                this.he -= 7;
+                this.he -= 12;
                 break;
         }
     }

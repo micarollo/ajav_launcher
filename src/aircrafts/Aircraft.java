@@ -1,5 +1,8 @@
 package ajav_launcher.aircrafts;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class Aircraft {
     protected String type;
     protected String name;
@@ -8,6 +11,7 @@ public abstract class Aircraft {
     protected int he;
     private final int id; //once asigned cant change
     private static int counter = 0;
+    protected Map<String, String> weatherMsg;
 
     public Aircraft (String type, String name, int longitude, int latitude, int height) {
         this.type = type;
@@ -16,6 +20,11 @@ public abstract class Aircraft {
         this.la = latitude;
         this.he = height;
         this.id = ++counter;
+        this.weatherMsg = new HashMap<>();
+    }
+
+    public String getWeatherMsg(String weather) {
+        return weatherMsg.get(weather);
     }
 
     public abstract void reactToWeather(String weather); //abstract to manage this function inside the class extend class : JetPlane, Ballon, Helicopter

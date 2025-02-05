@@ -37,9 +37,16 @@ public class Simulation {
                 case "jetplane":
                     aircraft = new JetPlane(type, name, longitude, latitude, height);
                     break;
+                case "helicopter":
+                    aircraft = new Helicopter(type, name, longitude, latitude, height);
+                    break;
+                case "baloon":
+                    aircraft = new Baloon(type, name, longitude, latitude, height);
+                    break;
             }
             aircrafts_li.add(aircraft);
             System.out.println("Creado: " + aircraft);
+            System.out.println("Mensaje para 'SUN': " + aircraft.getWeatherMsg("SNOW"));
         }
     }
 
@@ -71,6 +78,8 @@ public class Simulation {
             {
                 weatherTower.changeWeather();
                 System.out.println("-------------");
+                //update coord
+                //msg
                 cycles--;
             }
         } catch (SimulationException e) {
