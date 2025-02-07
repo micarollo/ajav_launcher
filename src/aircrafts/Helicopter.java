@@ -5,10 +5,10 @@ import src.WeatherTower;
 public class Helicopter extends Aircraft {
     public Helicopter (String type, String name, int lo, int la, int he) {
         super(type, name, lo, la, he);
-        weatherMsg.put("SUN", "Helicopter sun");
-        weatherMsg.put("FOG", "Helicopter fog");
-        weatherMsg.put("RAIN", "Helicopter rain");
-        weatherMsg.put("SNOW", "Helicopter snow");
+        weatherMsg.put("SUN", "Sun's out, rotors out! Time to soar like a happy bird!");
+        weatherMsg.put("FOG", "My rotors are slicing through the fog, but my GPS is on vacation today!");
+        weatherMsg.put("RAIN", "Rain is just a reason to spin faster! Who needs an umbrella when you have blades?");
+        weatherMsg.put("SNOW", "Snowstorm? More like a winter wonderland in the air! But someone get me a hot cocoa!");
     }
 
     @Override

@@ -5,10 +5,10 @@ import src.WeatherTower;
 public class JetPlane extends Aircraft {
     public JetPlane(String type, String name, int longitude, int latitude, int height) {
         super(type, name, longitude, latitude, height);
-        weatherMsg.put("SUN", "JetPlane sun");
-        weatherMsg.put("FOG", "JetPlane fog");
-        weatherMsg.put("RAIN", "JetPlane rain");
-        weatherMsg.put("SNOW", "JetPlane snow");
+        weatherMsg.put("SUN", "The sun is so bright, I might just roast my wings!");
+        weatherMsg.put("FOG", "Is this the sky or just a big cotton candy factory? Hard to tell in all this fog!");
+        weatherMsg.put("RAIN", "Rain, rain, go away! I need clear skies for my turbocharged fun!");
+        weatherMsg.put("SNOW", "The snow's coming down, but I'm still flying high, looking like a snowplow in the sky!");
     }
 
     @Override

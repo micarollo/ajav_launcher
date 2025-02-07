@@ -25,7 +25,27 @@ public abstract class Aircraft {
     }
 
     public String getWeatherMsg(String weather) {
-        return weatherMsg.get(weather);
+        String RESET = "\033[0m";
+        String VIOLET = "\033[35m";
+        String BLUE = "\033[0;34m";
+        String YELLOW = "\033[0;33m";
+        // String msg = weatherMsg.get(weather);
+        // if (weather.equals("SUN"))
+        //     return (YELLOW + this.type + "#" + this.name + "(" + this.id + "): " + msg + RESET);
+        // else if (weather.equals("RAIN"))
+        //     return (BLUE + this.type + "#" + this.name + "(" + this.id + "): " + msg + RESET);
+        // else if (weather.equals("FOG"))
+        //     return (VIOLET + this.type + "#" + this.name + "(" + this.id + "): " + msg + RESET);
+        // else
+        //     return (this.type + "#" + this.name + "(" + this.id + "): " + msg);
+        String msg = "";
+        switch (weather) {
+            case "SUN" -> msg = YELLOW + this.type + "#" + this.name + "(" + this.id + "): " + weatherMsg.get(weather) + RESET;
+            case "RAIN" -> msg = BLUE + this.type + "#" + this.name + "(" + this.id + "): " + weatherMsg.get(weather) + RESET;
+            case "FOG" -> msg = VIOLET + this.type + "#" + this.name + "(" + this.id + "): " + weatherMsg.get(weather) + RESET;
+            case "SNOW" -> msg = this.type + "#" + this.name + "(" + this.id + "): " + weatherMsg.get(weather);
+        }
+        return msg;
     }
 
     public String getName() {
@@ -61,6 +81,6 @@ public abstract class Aircraft {
             this.he = 0;
             tower.unregister(this);
         }
-        System.out.println("LO: " + getLongitude() + " | LA: " + getLatitude() + " | HE: " + getHeight());
+        // System.out.println("LO: " + getLongitude() + " | LA: " + getLatitude() + " | HE: " + getHeight());
     }
 }

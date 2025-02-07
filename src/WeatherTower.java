@@ -6,18 +6,22 @@ import java.util.List;
 import java.util.Random;
 
 public class WeatherTower {
+    public static final String RESET = "\033[0m";  // Resetea el color
+    public static final String RED = "\033[0;31m"; // Rojo
+    public static final String GREEN = "\033[0;32m";
+
     private List<Aircraft> registeredAircrafts = new ArrayList<>();
     
     public void register(List<Aircraft> aircrafts_li) {
         for (Aircraft aircraft : aircrafts_li) {
             registeredAircrafts.add(aircraft);
-            System.out.println("Registered to WeatherTower: " + aircraft.getName());
+            System.out.println(GREEN + "Registered to WeatherTower: " + aircraft.getName() + RESET);
         }
     }
     
     public void unregister(Aircraft aircraft) {
         if (registeredAircrafts.remove(aircraft))
-            System.out.println("Aircraft: " + aircraft.getType() + " " + aircraft.getName() + " landed. Unregistered from the Weather Tower");
+            System.out.println(RED + "Aircraft " + aircraft.getType() + " " + aircraft.getName() + " landed. Unregistered from the Weather Tower" + RESET);
         else
             System.out.println("Aircraft not registered in the Weather Tower");
     }

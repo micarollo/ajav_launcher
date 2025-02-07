@@ -80,9 +80,9 @@ public class Simulation {
                     // System.out.println(aircraft.getWeatherMsg(weather));
                     if (weatherTower.isRegistered(aircraft))
                         System.out.println(aircraft.getWeatherMsg(weather));
-                    System.out.println("-------------------------------------");
                 }
                 cycles--;
+                System.out.println("-------------------------------------");
             }
         } catch (SimulationException e) {
             System.out.println("Simulation error: " + e.getMessage());
