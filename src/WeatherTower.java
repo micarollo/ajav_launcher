@@ -15,7 +15,7 @@ public class WeatherTower {
     public void register(List<Aircraft> aircrafts_li) {
         for (Aircraft aircraft : aircrafts_li) {
             registeredAircrafts.add(aircraft);
-            System.out.println(GREEN + "Registered to WeatherTower: " + aircraft.getName() + RESET);
+            System.out.println(GREEN + aircraft.getName() + " registered to WeatherTower" + RESET);
         }
     }
     
@@ -41,7 +41,6 @@ public class WeatherTower {
             case 2 -> weather = "FOG";
             case 3 -> weather = "SNOW";
         }
-        System.out.println(weather);
         return weather;
     }
 

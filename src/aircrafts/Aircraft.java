@@ -29,15 +29,6 @@ public abstract class Aircraft {
         String VIOLET = "\033[35m";
         String BLUE = "\033[0;34m";
         String YELLOW = "\033[0;33m";
-        // String msg = weatherMsg.get(weather);
-        // if (weather.equals("SUN"))
-        //     return (YELLOW + this.type + "#" + this.name + "(" + this.id + "): " + msg + RESET);
-        // else if (weather.equals("RAIN"))
-        //     return (BLUE + this.type + "#" + this.name + "(" + this.id + "): " + msg + RESET);
-        // else if (weather.equals("FOG"))
-        //     return (VIOLET + this.type + "#" + this.name + "(" + this.id + "): " + msg + RESET);
-        // else
-        //     return (this.type + "#" + this.name + "(" + this.id + "): " + msg);
         String msg = "";
         switch (weather) {
             case "SUN" -> msg = YELLOW + this.type + "#" + this.name + "(" + this.id + "): " + weatherMsg.get(weather) + RESET;
