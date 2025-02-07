@@ -1,4 +1,6 @@
-package ajav_launcher.aircrafts;
+package aircrafts;
+
+import src.WeatherTower;
 
 public class JetPlane extends Aircraft {
     public JetPlane(String type, String name, int longitude, int latitude, int height) {
@@ -10,21 +12,14 @@ public class JetPlane extends Aircraft {
     }
 
     @Override
-    public void reactToWeather(String weather) {
+    public void reactToWeather(String weather, WeatherTower tower) {
+        if (!tower.isRegistered(this))
+            return;
         switch (weather) {
-            case "SUN":
-                this.la += 10;
-                this.he += 2;
-                break;
-            case "RAIN":
-                this.la += 5;
-                break;
-            case "FOG":
-                this.la += 1;
-                break;
-            case "SNOW":
-                this.he -= 7;
-                break;
+            case "SUN" -> this.updateCoord(0, 10, 2, tower);
+            case "RAIN" -> this.updateCoord(0, 5, 0, tower);
+            case "FOG" -> this.updateCoord(0, 1, 0, tower);
+            case "SNOW" ->this.updateCoord(0, 0, -7, tower);
         }
     }
 }

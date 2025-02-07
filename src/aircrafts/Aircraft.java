@@ -1,7 +1,8 @@
-package ajav_launcher.aircrafts;
+package aircrafts;
 
 import java.util.HashMap;
 import java.util.Map;
+import src.WeatherTower;
 
 public abstract class Aircraft {
     protected String type;
@@ -27,5 +28,39 @@ public abstract class Aircraft {
         return weatherMsg.get(weather);
     }
 
-    public abstract void reactToWeather(String weather); //abstract to manage this function inside the class extend class : JetPlane, Ballon, Helicopter
+    public String getName() {
+        return this.name;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public int getLongitude() {
+        return this.lo;
+    }
+
+    public int getLatitude() {
+        return this.la;
+    }
+
+    public int getHeight() {
+        return this.he;
+    }
+
+    public abstract void reactToWeather(String weather, WeatherTower tower); //abstract to manage this function inside the class extend class : JetPlane, Ballon, Helicopter
+    
+    public void updateCoord(int longitude, int latitude, int height, WeatherTower tower) {
+        this.lo += longitude;
+        this.la += latitude;
+        this.he += height;
+        if (this.he > 100) {
+            this.he = 100;
+        }
+        else if (this.he <= 0) {
+            this.he = 0;
+            tower.unregister(this);
+        }
+        System.out.println("LO: " + getLongitude() + " | LA: " + getLatitude() + " | HE: " + getHeight());
+    }
 }
