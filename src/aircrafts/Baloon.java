@@ -10,7 +10,7 @@ public class Baloon extends Aircraft implements Flyable{
 
     @Overrid
     public void updateConditions () {
-
+        
     }
     // public Baloon (String type, String name, int lo, int la, int he) {
     //     super(type, name, lo, la, he);

@@ -4,13 +4,20 @@ import aircraft.Flyable;
 import src.WeatherTower;
 
 public class Helicopter extends Aircraft implements Flyable{
-     public Helicopter (long p_id, String p_name, Coordinates p_coordinates) {
+    private WeatherTower tower;
+    public Helicopter (long p_id, String p_name, Coordinates p_coordinates) {
         super(p_id, p_name, p_coordinates);
     }
 
     @Override
     public void updateConditions () {
 
+    }
+
+    @Override
+    public void registerTower(WeatherTower weatherTower) {
+        this.tower = weatherTower;
+        
     }
     // public Helicopter (String type, String name, int lo, int la, int he) {
     //     super(type, name, lo, la, he);

@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class WeatherTower {
+public class WeatherTower extends Tower{
     public String getWeather(Coordinates p_coordinates) {
-
+        return WeatherProvider.getWeatherProvider().getCurrentWeather(p_coordinates);
     }
 
     public void changeWeather() {
-
+        this.conditionChanged();
     }
 
     // public static final String RESET = "\033[0m";  // Resetea el color

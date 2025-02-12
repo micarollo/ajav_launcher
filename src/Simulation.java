@@ -1,5 +1,6 @@
 package src;
 
+import aircraft.AircraftFactory;
 import aircrafts.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,6 +19,7 @@ public class Simulation {
     }
 
     private static void loadAircrafts(BufferedReader br) throws IOException {
+        Flyable aircraft;
         String line;
         while ((line = br.readLine()) != null)
         {
@@ -27,13 +29,15 @@ public class Simulation {
             int longitude = Integer.parseInt(data[2]);
             int latitude = Integer.parseInt(data[3]);
             int height = Integer.parseInt(data[4]);
-            Aircraft aircraft = null;
-            switch (type.toLowerCase()) {
-                case "jetplane" -> aircraft = new JetPlane(type, name, longitude, latitude, height);
-                case "helicopter" -> aircraft = new Helicopter(type, name, longitude, latitude, height);
-                case "baloon" -> aircraft = new Baloon(type, name, longitude, latitude, height);
-            }
-            aircrafts_li.add(aircraft);
+            aircraft = AircraftFactory.newAircraft(type, name, new Coodinates(longitude, latitude, height));
+
+            // Aircraft aircraft = null;
+            // switch (type.toLowerCase()) {
+            //     case "jetplane" -> aircraft = new JetPlane(type, name, longitude, latitude, height);
+            //     case "helicopter" -> aircraft = new Helicopter(type, name, longitude, latitude, height);
+            //     case "baloon" -> aircraft = new Baloon(type, name, longitude, latitude, height);
+            // }
+            // aircrafts_li.add(aircraft);
         }
     }
 
