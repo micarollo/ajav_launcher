@@ -1,3 +1,4 @@
+//diferent diagram than UML
 package src;
 
 import aircrafts.*;
