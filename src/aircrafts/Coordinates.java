@@ -1,4 +1,4 @@
-package src;
+package aircrafts;
 
 public class Coordinates {
     private int longitude;

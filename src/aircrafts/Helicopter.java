@@ -1,6 +1,5 @@
 package aircrafts;
 
-import aircraft.Flyable;
 import src.WeatherTower;
 
 public class Helicopter extends Aircraft implements Flyable{
@@ -10,32 +9,39 @@ public class Helicopter extends Aircraft implements Flyable{
     }
 
     @Override
-    public void updateConditions () {
-
+    public void updateConditions() {
+        String weather = tower.getWeather(coordinates);
+        switch (weather) {
+            case "SUN":
+                if ((coordinates.getHeight() + 2) > 100)
+                    coordinates = new Coordinates(coordinates.getLongitude() + 10, coordinates.getLatitude(), 100);
+                else
+                    coordinates = new Coordinates(coordinates.getLongitude() + 10, coordinates.getLatitude(), coordinates.getHeight() + 2);
+                System.out.println("Sun's out, rotors out! Time to soar like a happy bird!");
+                break;
+            case "FOG":
+                coordinates = new Coordinates(coordinates.getLongitude(), coordinates.getLatitude() + 1, coordinates.getHeight());
+                System.out.println("My rotors are slicing through the fog, but my GPS is on vacation today!");
+                break;
+            case "RAIN":
+                coordinates = new Coordinates(coordinates.getLongitude() + 5, coordinates.getLatitude(), coordinates.getHeight());
+                System.out.println("Rain is just a reason to spin faster! Who needs an umbrella when you have blades?");
+                break;
+            case "SNOW":
+                coordinates = new Coordinates(coordinates.getLongitude(), coordinates.getLatitude(), coordinates.getHeight() - 12);
+                System.out.println("Snowstorm? More like a winter wonderland in the air! But someone get me a hot cocoa!");
+                break;
+        }
+        if(coordinates.getHeight() <= 0) {
+            System.out.println("Helicopter " + name + ": landing... See on the ground!");
+            tower.unregister(this);
+        }
     }
 
     @Override
     public void registerTower(WeatherTower weatherTower) {
         this.tower = weatherTower;
-        
+        tower.register(this);
+        System.out.println("New Aircraft " + this.name + " registered to the weather tower.");
     }
-    // public Helicopter (String type, String name, int lo, int la, int he) {
-    //     super(type, name, lo, la, he);
-    //     weatherMsg.put("SUN", "Sun's out, rotors out! Time to soar like a happy bird!");
-    //     weatherMsg.put("FOG", "My rotors are slicing through the fog, but my GPS is on vacation today!");
-    //     weatherMsg.put("RAIN", "Rain is just a reason to spin faster! Who needs an umbrella when you have blades?");
-    //     weatherMsg.put("SNOW", "Snowstorm? More like a winter wonderland in the air! But someone get me a hot cocoa!");
-    // }
-
-    // @Override
-    // public void reactToWeather(String weather, WeatherTower tower) {
-    //     if (!tower.isRegistered(this))
-    //         return;
-    //     switch (weather) {
-    //         case "SUN" -> this.updateCoord(0, 10, 2, tower);
-    //         case "RAIN" -> this.updateCoord(0, 5, 0, tower);
-    //         case "FOG" -> this.updateCoord(1, 0, 0, tower);
-    //         case "SNOW" -> this.updateCoord(0, 0, -12, tower);
-    //     }
-    // }
 }

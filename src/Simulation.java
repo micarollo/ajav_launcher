@@ -1,7 +1,6 @@
 package src;
 
-import aircraft.AircraftFactory;
-import aircrafts.*;
+import aircraft.Flyable;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,7 +9,8 @@ import java.util.List;
 
 public class Simulation {
     private static int cycles;
-    private final static List<Aircraft> aircrafts_li = new ArrayList<>();
+    private final static List<Flyable> aircrafts_li = new ArrayList<>();
+    private final static WeatherTower weatherTower = new WeatherTower();
 
     public static class SimulationException extends Exception {
         public SimulationException(String message) {
@@ -30,14 +30,8 @@ public class Simulation {
             int latitude = Integer.parseInt(data[3]);
             int height = Integer.parseInt(data[4]);
             aircraft = AircraftFactory.newAircraft(type, name, new Coodinates(longitude, latitude, height));
-
-            // Aircraft aircraft = null;
-            // switch (type.toLowerCase()) {
-            //     case "jetplane" -> aircraft = new JetPlane(type, name, longitude, latitude, height);
-            //     case "helicopter" -> aircraft = new Helicopter(type, name, longitude, latitude, height);
-            //     case "baloon" -> aircraft = new Baloon(type, name, longitude, latitude, height);
-            // }
-            // aircrafts_li.add(aircraft);
+            aircrafts_li.add(aircraft);
+            weatherTower.register(aircraft);
         }
     }
 
@@ -62,16 +56,9 @@ public class Simulation {
             initSimulation(br);
             loadAircrafts(br);
             System.out.println("WEATHER CHANGE NOW");
-            WeatherTower weatherTower = new WeatherTower();
-            weatherTower.register(aircrafts_li);
             while (cycles > 0)
             {
-                String weather = weatherTower.changeWeather();
-                for (Aircraft aircraft : aircrafts_li) {
-                    aircraft.reactToWeather(weather, weatherTower);
-                    if (weatherTower.isRegistered(aircraft))
-                        System.out.println(aircraft.getWeatherMsg(weather));
-                }
+                weatherTower.changeWeather();
                 cycles--;
             }
         } catch (SimulationException e) {

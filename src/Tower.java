@@ -3,7 +3,7 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.aircraft.Flyable;
+import aircraft.Flyable;
 
 public class Tower {
     private List<Flyable> observers = new ArrayList<Flyable>();
@@ -16,7 +16,7 @@ public class Tower {
         observers.remove(p_flyable);
     }
 
-    private void conditionChanged() {
+    protected void conditionChanged() {
         for (int i = 0; i < observers.size(); i++) {
             observers.get(i).updateConditions();
         }

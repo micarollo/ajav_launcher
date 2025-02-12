@@ -1,4 +1,4 @@
-package aircraft;
+package aircrafts;
 
 public class AircraftFactory {
     private static long count = 0;
@@ -11,6 +11,7 @@ public class AircraftFactory {
             case "baloon":
                 return (new Baloon(++count, p_name, p_coordinates));
         }
+        return null;
         // if (p_type.toLowerCase().equals("jetplane")) {
         //     return (new JetPlane(++count, p_name, p_coordinates));
         // }

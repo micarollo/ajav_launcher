@@ -1,34 +1,48 @@
 package aircrafts;
 
-import aircraft.Flyable;
 import src.WeatherTower;
 
 public class Baloon extends Aircraft implements Flyable{
-     public Baloon (long p_id, String p_name, Coordinates coordinates) {
+    private WeatherTower tower;
+
+    public Baloon (long p_id, String p_name, Coordinates coordinates) {
         super(p_id, p_name, coordinates);
     }
 
-    @Overrid
+   @Override
     public void updateConditions () {
-        
+        String weather = tower.getWeather(coordinates);
+        switch (weather) {
+            case "SUN":
+                if ((coordinates.getHeight() + 4) > 100)
+                    coordinates = new Coordinates(coordinates.getLongitude() + 2, coordinates.getLatitude(), 100);
+                else
+                    coordinates = new Coordinates(coordinates.getLongitude() + 2, coordinates.getLatitude(), coordinates.getHeight() + 4);
+                System.out.println("I'm floating with joy! Sun is my best friend, let's get some tan!");
+                break;
+            case "FOG":
+                coordinates = new Coordinates(coordinates.getLongitude(), coordinates.getLatitude(), coordinates.getHeight() - 5);
+                System.out.println("I can't see a thing, but I’m still floating like a ghost in the mist!");
+                break;
+            case "RAIN":
+                coordinates = new Coordinates(coordinates.getLongitude(), coordinates.getLatitude(), coordinates.getHeight() - 5);
+                System.out.println("The rain is falling, but I'm still floating high. Guess I'm just too cool to get wet!");
+                break;
+            case "SNOW":
+                coordinates = new Coordinates(coordinates.getLongitude(), coordinates.getLatitude(), coordinates.getHeight() - 15);
+                System.out.println("I'm not just floating, I'm gliding through the snow! If only I had a scarf...");
+                break;
+        }
+        if(coordinates.getHeight() <= 0) {
+            System.out.println("Baloon " + name + ": landing... See on the ground!");
+            tower.unregister(this);
+        }
     }
-    // public Baloon (String type, String name, int lo, int la, int he) {
-    //     super(type, name, lo, la, he);
-    //     weatherMsg.put("SUN", "I'm floating with joy! Sun is my best friend, let's get some tan!");
-    //     weatherMsg.put("FOG", "I can't see a thing, but I’m still floating like a ghost in the mist!");
-    //     weatherMsg.put("RAIN", "The rain is falling, but I'm still floating high. Guess I'm just too cool to get wet!");
-    //     weatherMsg.put("SNOW", "I'm not just floating, I'm gliding through the snow! If only I had a scarf...");
-    // }
 
-    // @Override
-    // public void reactToWeather(String weather, WeatherTower tower) {
-    //     if (!tower.isRegistered(this))
-    //         return;
-    //     switch (weather) {
-    //         case "SUN" -> this.updateCoord(0, 2, 4, tower);
-    //         case "RAIN" -> this.updateCoord(0, -5, 0, tower);
-    //         case "FOG" -> this.updateCoord(0, -3, 0, tower);
-    //         case "SNOW" -> this.updateCoord(0, 0, -15, tower);
-    //     }
-    // }
+    @Override
+    public void registerTower(WeatherTower weatherTower) {
+        this.tower = weatherTower;
+        tower.register(this);
+        System.out.println("New Aircraft " + this.name + " registered to the weather tower.");
+    }
 }
