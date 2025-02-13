@@ -35,9 +35,7 @@ public class Simulation {
             int height = Integer.parseInt(data[4]);
             Flyable aircraft = factory.newAircraft(type, name, new Coordinates(longitude, latitude, height));
             aircrafts_li.add(aircraft);
-            // weatherTower.register(aircraft);
             aircraft.registerTower(weatherTower);
-            System.out.println("New aircraft: " + aircraft);
         }
     }
 
@@ -61,7 +59,6 @@ public class Simulation {
         try (BufferedReader br = new BufferedReader(new FileReader(fname))){
             initSimulation(br);
             loadAircrafts(br);
-            // System.out.println("WEATHER CHANGE NOW");
             while (cycles > 0)
             {
                 weatherTower.changeWeather();
