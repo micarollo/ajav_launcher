@@ -1,11 +1,14 @@
 package src;
 
-import aircraft.Flyable;
+import aircrafts.Flyable;
+import aircrafts.Coordinates;
+import aircrafts.AircraftFactory;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 public class Simulation {
     private static int cycles;
@@ -19,7 +22,8 @@ public class Simulation {
     }
 
     private static void loadAircrafts(BufferedReader br) throws IOException {
-        Flyable aircraft;
+        // Flyable aircraft;
+        AircraftFactory factory = AircraftFactory.getInstance();
         String line;
         while ((line = br.readLine()) != null)
         {
@@ -29,9 +33,11 @@ public class Simulation {
             int longitude = Integer.parseInt(data[2]);
             int latitude = Integer.parseInt(data[3]);
             int height = Integer.parseInt(data[4]);
-            aircraft = AircraftFactory.newAircraft(type, name, new Coodinates(longitude, latitude, height));
+            Flyable aircraft = factory.newAircraft(type, name, new Coordinates(longitude, latitude, height));
             aircrafts_li.add(aircraft);
-            weatherTower.register(aircraft);
+            // weatherTower.register(aircraft);
+            aircraft.registerTower(weatherTower);
+            System.out.println("New aircraft: " + aircraft);
         }
     }
 
@@ -55,11 +61,12 @@ public class Simulation {
         try (BufferedReader br = new BufferedReader(new FileReader(fname))){
             initSimulation(br);
             loadAircrafts(br);
-            System.out.println("WEATHER CHANGE NOW");
+            // System.out.println("WEATHER CHANGE NOW");
             while (cycles > 0)
             {
                 weatherTower.changeWeather();
                 cycles--;
+                System.out.println("--------------------------------------------");
             }
         } catch (SimulationException e) {
             System.out.println("Simulation error: " + e.getMessage());

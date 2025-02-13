@@ -3,7 +3,7 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 
-import aircraft.Flyable;
+import aircrafts.Flyable;
 
 public class Tower {
     private List<Flyable> observers = new ArrayList<Flyable>();
