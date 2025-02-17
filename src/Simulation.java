@@ -25,17 +25,31 @@ public class Simulation {
         // Flyable aircraft;
         AircraftFactory factory = AircraftFactory.getInstance();
         String line;
+        int lineNum = 0;
         while ((line = br.readLine()) != null)
         {
-            String[] data = line.split("\\s+");
-            String type = data[0];
-            String name = data[1];
-            int longitude = Integer.parseInt(data[2]);
-            int latitude = Integer.parseInt(data[3]);
-            int height = Integer.parseInt(data[4]);
-            Flyable aircraft = factory.newAircraft(type, name, new Coordinates(longitude, latitude, height));
-            aircrafts_li.add(aircraft);
-            aircraft.registerTower(weatherTower);
+            lineNum++;
+            try {
+                String[] data = line.split("\\s+");
+                if (data.length < 5) {
+                    throw new IllegalArgumentException("Incorrect format in line " + lineNum);
+                }
+                String type = data[0];
+                String name = data[1];
+                int longitude = Integer.parseInt(data[2]);
+                int latitude = Integer.parseInt(data[3]);
+                int height = Integer.parseInt(data[4]);
+                Flyable aircraft = factory.newAircraft(type, name, new Coordinates(longitude, latitude, height));
+                aircrafts_li.add(aircraft);
+                aircraft.registerTower(weatherTower);
+                
+            } catch (NumberFormatException e) {
+                throw new IOException("Cant convert to int in line " + lineNum + ": " + e);
+            } catch (IllegalArgumentException e) {
+                throw new IOException("Error en los datos de la línea " + lineNum + ": " + e);
+            } catch (Exception e) {
+                throw new IOException("Error in line: " + lineNum + ": " + e);
+            }
         }
     }
 
@@ -68,7 +82,7 @@ public class Simulation {
         } catch (SimulationException e) {
             System.out.println("Simulation error: " + e.getMessage());
         } catch (IOException e) {
-            System.out.println("Cannot read .txt");
+            System.out.println("Simulation error: " + e.getMessage());
         }
     }
 }
